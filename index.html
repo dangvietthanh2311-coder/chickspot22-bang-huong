@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChickSpot 22 · Bảng hướng xây dựng thương hiệu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f7ffe1;
+    --card:#fffdf4;
+    --card-warm:#f4f6df;
+    --olive:#50742a;
+    --olive-ink:#2c4316;
+    --olive-soft:#5f7a40;
+    --olive-line:rgba(80,116,42,.18);
+    --olive-wash:rgba(80,116,42,.07);
+    --mustard:#c08416;
+    --mustard-wash:rgba(192,132,22,.12);
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--cream);color:var(--olive-ink);
+    font-family:"Be Vietnam Pro",system-ui,sans-serif;font-weight:400;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px;}
+
+  /* Sticky scenario bar */
+  .scenario-bar{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(247,255,225,.93);backdrop-filter:saturate(1.1) blur(6px);border-bottom:1px solid var(--olive-line);transform:translateY(-100%);opacity:0;visibility:hidden;pointer-events:none;transition:transform .25s ease,opacity .25s ease;}
+  .scenario-bar.show{transform:none;opacity:1;visibility:visible;pointer-events:auto;}
+  .bar-in{display:flex;align-items:center;gap:12px;padding:11px 22px;}
+  .bar-lab{font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--olive-soft);}
+  .bar-name{font-family:"Fraunces",serif;font-weight:600;font-size:1.02rem;color:var(--olive-ink);}
+  .bar-actions{margin-left:auto;display:flex;gap:8px;}
+  .bar-btn{font-family:inherit;font-size:.8rem;font-weight:600;color:var(--cream);background:var(--olive);border:1px solid var(--olive);border-radius:999px;padding:7px 15px;cursor:pointer;transition:background .15s ease,color .15s ease;}
+  .bar-btn:hover{background:var(--olive-ink);}
+  .bar-btn:focus-visible{outline:none;box-shadow:0 0 0 3px var(--mustard-wash),0 0 0 1.5px var(--mustard);}
+  .bar-btn.ghost{background:transparent;color:var(--olive);}
+  .bar-btn.ghost:hover{background:var(--olive-wash);}
+  @media(max-width:560px){.bar-lab{display:none;}.bar-in{gap:8px;padding:9px 16px;}.bar-btn{padding:6px 12px;font-size:.76rem;}}
+
+  /* Header */
+  .top{padding:54px 0 8px;}
+  .eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--olive);margin:0 0 14px;}
+  .title{font-family:"Fraunces",serif;font-weight:600;font-optical-sizing:auto;font-size:clamp(2.2rem,5vw,3.5rem);line-height:1.04;letter-spacing:-.01em;margin:0 0 14px;color:var(--olive-ink);}
+  .title em{font-style:italic;color:var(--olive);}
+  .lede{font-size:1.05rem;max-width:64ch;margin:0 0 22px;color:var(--olive-ink);}
+  .lede strong{color:var(--olive);font-weight:600;}
+
+  .quad{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px;}
+  .chip{display:flex;align-items:center;gap:9px;padding:9px 14px;border-radius:999px;font-size:.82rem;font-weight:500;border:1px solid var(--olive-line);background:var(--card);}
+  .chip .dot{width:9px;height:9px;border-radius:50%;flex:none;}
+  .chip.has{background:var(--olive);color:var(--cream);border-color:var(--olive);}
+  .chip.has .dot{background:var(--cream);}
+  .chip.no .dot{background:transparent;border:1.5px solid var(--olive-soft);}
+  .chip .lab{opacity:.62;font-size:.72rem;}
+  .chip.has .lab{opacity:.85;}
+
+  .callout{border-left:3px solid var(--mustard);background:var(--mustard-wash);padding:13px 16px;border-radius:0 10px 10px 0;font-size:.92rem;margin:18px 0 0;}
+  .callout b{color:var(--olive-ink);}
+
+  /* Reading guide */
+  .guide{background:var(--card);border:1px solid var(--olive-line);border-radius:15px;padding:18px 20px;margin:20px 0 0;}
+  .guide h4{font-family:"Fraunces",serif;font-weight:600;font-size:1.05rem;margin:0 0 12px;color:var(--olive-ink);}
+  .guide ul{margin:0;padding:0;list-style:none;display:grid;gap:9px;}
+  .guide li{font-size:.88rem;display:flex;gap:10px;align-items:flex-start;}
+  .pill{flex:none;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:999px;margin-top:1px;}
+  .pill.m{background:var(--mustard);color:#fff;}
+  .pill.o{background:var(--olive);color:var(--cream);}
+  .pill.g{background:var(--card-warm);color:var(--olive);border:1px solid var(--olive-line);}
+
+  .rule{height:1px;background:var(--olive-line);border:0;margin:38px 0 0;}
+
+  /* Glossary */
+  .gloss{padding:38px 0 6px;}
+  .gloss > summary{cursor:pointer;list-style:none;}
+  .gloss summary::-webkit-details-marker{display:none;}
+  .gloss-head{display:flex;align-items:center;justify-content:space-between;gap:14px;}
+  .gloss-head h2{font-family:"Fraunces",serif;font-weight:600;font-size:clamp(1.4rem,3vw,1.9rem);margin:0;color:var(--olive-ink);}
+  .gloss-head .hint{font-size:.8rem;color:var(--olive-soft);}
+  .gloss-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin:20px 0 0;}
+  .g{background:var(--card);border:1px solid var(--olive-line);border-radius:12px;padding:13px 15px;}
+  .g .term{display:flex;align-items:baseline;gap:8px;margin:0 0 5px;}
+  .g .term b{font-family:"Fraunces",serif;font-weight:600;font-size:1rem;color:var(--olive);}
+  .g .term i{font-style:normal;font-size:.82rem;color:var(--olive-soft);font-weight:500;}
+  .g p{margin:0;font-size:.86rem;color:var(--olive-ink);}
+
+  /* Block */
+  .block{padding:42px 0 6px;}
+  .block-head{margin:0 0 22px;}
+  .block-tag{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--olive);margin:0 0 12px;}
+  .block-tag .num{font-family:"Fraunces",serif;font-size:1.05rem;font-weight:600;letter-spacing:0;background:var(--olive);color:var(--cream);width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;}
+  .block-h{font-family:"Fraunces",serif;font-weight:600;font-size:clamp(1.5rem,3vw,2.05rem);line-height:1.12;margin:0 0 10px;letter-spacing:-.005em;color:var(--olive-ink);}
+  .block-desc{font-size:.97rem;max-width:72ch;margin:0;color:var(--olive-soft);}
+  .block-desc strong{color:var(--olive);font-weight:600;}
+  .foundation .block-tag .num{background:var(--mustard);}
+  .foundation .block-tag{color:var(--mustard);}
+
+  .subhead{font-size:.74rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--olive-soft);margin:30px 0 14px;}
+  .subhead .fixed-note{font-weight:500;letter-spacing:0;text-transform:none;color:var(--olive-soft);font-size:.82rem;margin-left:8px;opacity:.85;}
+
+  /* Scenario strip */
+  .scenario-strip{display:flex;gap:11px;align-items:flex-start;margin:0 0 20px;padding:13px 16px;border-radius:12px;background:var(--card-warm);border:1px dashed var(--olive-line);color:var(--olive-soft);font-size:.9rem;transition:background .2s ease,border-color .2s ease,color .2s ease;}
+  .scenario-strip .strip-ic{flex:none;width:20px;height:20px;border-radius:50%;border:1.5px dashed var(--olive-soft);margin-top:1px;transition:all .2s ease;}
+  .scenario-strip .strip-text{flex:1;}
+  .scenario-strip .strip-text b{color:var(--olive);font-weight:600;}
+  .scenario-strip.is-active{background:var(--mustard-wash);border-style:solid;border-color:var(--mustard);color:var(--olive-ink);}
+  .scenario-strip.is-active .strip-ic{border-style:solid;border-color:var(--mustard);background:var(--mustard);}
+
+  /* Cards */
+  .cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+  .cards.two{grid-template-columns:repeat(auto-fit,minmax(330px,1fr));}
+  .cards.pair{grid-template-columns:repeat(2,1fr);}
+  @media(max-width:720px){.cards.pair{grid-template-columns:1fr;}}
+
+  .card{position:relative;background:var(--card);border:1px solid var(--olive-line);border-radius:15px;padding:20px 20px 18px;cursor:default;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,opacity .22s ease;outline:none;}
+  .card.rec{border-color:var(--mustard);border-width:1.5px;background:linear-gradient(180deg,var(--mustard-wash),var(--card) 62%);}
+  .card.trung{border-color:var(--olive);border-width:1.5px;background:linear-gradient(180deg,var(--olive-wash),var(--card) 62%);}
+
+  /* Pickable cards (block 1 only) */
+  .card.pick{cursor:pointer;}
+  .card.pick:hover{transform:translateY(-3px);box-shadow:0 10px 26px -16px rgba(44,67,22,.5);border-color:var(--olive-soft);}
+  .card.pick:focus-visible{box-shadow:0 0 0 3px var(--mustard-wash),0 0 0 1.5px var(--mustard);}
+  .card.pick.selected{border-color:var(--olive);box-shadow:0 0 0 2px var(--olive),0 12px 30px -18px rgba(44,67,22,.55);}
+  .card.pick.dim{opacity:.46;filter:saturate(.62);}
+  .card.pick.dim:hover{opacity:.64;}
+
+  .card-no{font-family:"Fraunces",serif;font-size:.92rem;font-weight:600;color:var(--olive-soft);margin:0 0 4px;}
+  .card-h{font-family:"Fraunces",serif;font-weight:600;font-size:1.18rem;line-height:1.2;margin:0 0 9px;color:var(--olive-ink);}
+  .card-sub{font-size:.9rem;color:var(--olive-soft);margin:0 0 14px;}
+
+  .row{display:flex;gap:9px;margin:0 0 9px;font-size:.86rem;align-items:flex-start;}
+  .row:last-child{margin-bottom:0;}
+  .tagm{flex:none;font-size:.64rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:6px;margin-top:1px;min-width:58px;text-align:center;}
+  .tagm.uu{background:var(--olive);color:var(--cream);}
+  .tagm.nh{background:transparent;border:1px solid var(--olive-line);color:var(--olive-soft);}
+  .tagm.dg{background:var(--mustard-wash);color:var(--mustard);}
+  .row span{color:var(--olive-ink);}
+  .row.dgrow span{font-weight:500;}
+
+  .seal{position:absolute;top:-11px;right:14px;background:var(--mustard);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 11px;border-radius:999px;box-shadow:0 4px 12px -4px rgba(192,132,22,.7);}
+  .seal.olv{background:var(--olive);box-shadow:0 4px 12px -4px rgba(80,116,42,.7);}
+
+  /* "Đang xem" tag on a picked backbone card */
+  .pick-now{display:none;margin:14px 0 0;font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--olive);background:var(--olive-wash);border:1px solid var(--olive-line);padding:5px 11px;border-radius:999px;align-items:center;gap:6px;}
+  .pick-now::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--olive);}
+  .card.pick.selected .pick-now{display:inline-flex;}
+
+  /* Dynamic fit states on lower cards */
+  .card.fit-chinh{border-color:var(--olive);box-shadow:0 0 0 1.5px var(--olive),0 12px 28px -20px rgba(44,67,22,.5);}
+  .card.fit-phu{border-color:var(--olive-soft);}
+  .card.fit-it{opacity:.5;filter:saturate(.6);}
+  .card.fit-it:hover{opacity:.66;}
+
+  .fit-chip{display:inline-flex;align-items:center;gap:6px;margin:14px 0 0;font-size:.64rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:5px 11px;border-radius:999px;}
+  .fit-chip.is-chinh{background:var(--olive);color:var(--cream);}
+  .fit-chip.is-chinh::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--cream);}
+  .fit-chip.is-phu{background:transparent;color:var(--olive-soft);border:1px solid var(--olive-line);}
+  .fit-chip[hidden]{display:none;}
+  .fit-reason{margin:12px 0 0;font-size:.82rem;color:var(--olive-soft);font-style:italic;border-top:1px dashed var(--olive-line);padding-top:10px;}
+  .fit-reason[hidden]{display:none;}
+
+  /* Phác thảo box on the four layer cards, reacts to the chosen track */
+  .layer-draft{margin:13px 0 0;padding:12px 14px;border-radius:10px;background:var(--mustard-wash);border:1px solid var(--mustard);color:var(--olive-ink);font-size:.85rem;line-height:1.6;}
+  .layer-draft::before{content:"Phác thảo theo trục";display:block;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mustard);margin:0 0 5px;}
+  .layer-draft.empty{background:var(--card-warm);border-style:dashed;border-color:var(--olive-line);color:var(--olive-soft);}
+  .layer-draft.empty::before{color:var(--olive-soft);}
+
+  /* Static Phác thảo box on slogan and story cards, always visible */
+  .draft{margin:14px 0 0;padding:13px 15px;border-radius:11px;background:var(--olive-wash);border:1px solid var(--olive-line);}
+  .draft-lab{display:block;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--olive);margin:0 0 7px;}
+  .draft-line{margin:0 0 5px;font-size:.9rem;color:var(--olive-ink);}
+  .draft-line:last-child{margin-bottom:0;}
+  .draft-line b{color:var(--olive);font-weight:700;margin-right:3px;}
+  .draft-story{margin:0;font-size:.88rem;line-height:1.72;color:var(--olive-ink);}
+
+  .note{background:var(--card-warm);border:1px solid var(--olive-line);border-radius:12px;padding:14px 17px;font-size:.9rem;margin:16px 0 0;color:var(--olive-ink);}
+  .note b{color:var(--olive);}
+
+  /* Footer */
+  .foot{padding:46px 0 70px;}
+  .foot-grid{display:grid;gap:18px;grid-template-columns:1.3fr 1fr;}
+  .panel{background:var(--card);border:1px solid var(--olive-line);border-radius:15px;padding:22px 22px 20px;}
+  .panel h3{font-family:"Fraunces",serif;font-weight:600;font-size:1.15rem;margin:0 0 14px;color:var(--olive-ink);}
+  .qlist{list-style:none;margin:0;padding:0;counter-reset:q;}
+  .qlist li{position:relative;padding:0 0 11px 30px;font-size:.9rem;margin:0 0 11px;border-bottom:1px solid var(--olive-wash);}
+  .qlist li:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0;}
+  .qlist li::before{counter-increment:q;content:counter(q);position:absolute;left:0;top:0;font-family:"Fraunces",serif;font-weight:600;font-size:.82rem;color:var(--mustard);width:21px;height:21px;border:1px solid var(--olive-line);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+  .qlist li b{color:var(--olive);font-weight:600;}
+  .pending p{font-size:.9rem;}
+  .pending b{color:var(--olive);}
+  .wordset{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 0;}
+  .wordset .w{font-size:.8rem;padding:5px 11px;border-radius:999px;background:var(--olive-wash);border:1px solid var(--olive-line);color:var(--olive-ink);}
+  .wordset .w.opt{background:var(--mustard-wash);border-color:var(--mustard);color:var(--mustard);}
+  .next{margin:20px 0 0;padding:14px 17px;border-radius:12px;background:var(--olive);color:var(--cream);font-size:.92rem;}
+  .next b{color:#fff;}
+
+  .src{margin:30px 0 0;font-size:.76rem;color:var(--olive-soft);line-height:1.7;border-top:1px solid var(--olive-line);padding-top:16px;}
+  .src b{color:var(--olive);}
+
+  @media(max-width:720px){.foot-grid{grid-template-columns:1fr;}.top{padding:38px 0 4px;}}
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  /* Floating table of contents (right edge dot nav) */
+  .toc{position:fixed;top:50%;right:18px;transform:translateY(-50%);z-index:45;display:flex;flex-direction:column;gap:14px;}
+  .toc-dot{position:relative;width:11px;height:11px;border-radius:50%;background:transparent;border:1.5px solid var(--olive-soft);opacity:.55;transition:opacity .18s ease,background .18s ease,border-color .18s ease,transform .18s ease;outline:none;}
+  .toc-dot:hover,.toc-dot:focus-visible{opacity:1;background:var(--olive-wash);}
+  .toc-dot:focus-visible{box-shadow:0 0 0 3px var(--mustard-wash),0 0 0 1.5px var(--mustard);}
+  .toc-dot.active{opacity:1;background:var(--olive);border-color:var(--olive);transform:scale(1.18);}
+  .toc-tip{position:absolute;right:22px;top:50%;transform:translateY(-50%) translateX(6px);white-space:nowrap;background:var(--olive-ink);color:var(--cream);font-size:.72rem;font-weight:500;padding:5px 10px;border-radius:7px;opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;}
+  .toc-dot:hover .toc-tip,.toc-dot:focus-visible .toc-tip{opacity:1;transform:translateY(-50%) translateX(0);}
+  @media(max-width:900px){.toc{display:none;}}
+  #glossary,#block1,#block2,#block3,#block4,#decisions{scroll-margin-top:72px;}
+
+  /* Phác thảo toggle button (slogan, story) */
+  .draft-toggle{margin:14px 0 0;display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-size:.78rem;font-weight:600;color:var(--olive);background:var(--olive-wash);border:1px solid var(--olive-line);border-radius:999px;padding:7px 14px;cursor:pointer;transition:background .15s ease,border-color .15s ease;}
+  .draft-toggle:hover{background:var(--card-warm);border-color:var(--olive-soft);}
+  .draft-toggle:focus-visible{outline:none;box-shadow:0 0 0 3px var(--mustard-wash),0 0 0 1.5px var(--mustard);}
+  .draft-toggle::after{content:"";width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin-top:-3px;transition:transform .18s ease;}
+  .draft-toggle[aria-expanded="true"]::after{transform:rotate(-135deg);margin-top:1px;}
+  .draft-toggle + .draft{margin-top:10px;}
+  @media(prefers-reduced-motion:reduce){*{transition:none !important;scroll-behavior:auto !important;}.reveal{opacity:1 !important;transform:none !important;}}
+</style>
+</head>
+<body>
+
+<!-- STICKY SCENARIO BAR -->
+<div class="scenario-bar" id="scbar" aria-hidden="true">
+  <div class="wrap bar-in">
+    <span class="bar-lab">Đang xem trục</span>
+    <span class="bar-name" id="barName"></span>
+    <div class="bar-actions">
+      <button type="button" class="bar-btn" id="barChange">Đổi trục</button>
+      <button type="button" class="bar-btn ghost" id="barClear">Bỏ chọn</button>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING TABLE OF CONTENTS -->
+<nav class="toc" aria-label="Mục lục nhanh">
+  <a class="toc-dot" href="#glossary"><span class="toc-tip">Từ chuyên ngành</span></a>
+  <a class="toc-dot" href="#block1"><span class="toc-tip">1 · Trục xương sống</span></a>
+  <a class="toc-dot" href="#block2"><span class="toc-tip">2 · Bộ bốn</span></a>
+  <a class="toc-dot" href="#block3"><span class="toc-tip">3 · Slogan</span></a>
+  <a class="toc-dot" href="#block4"><span class="toc-tip">4 · Câu chuyện</span></a>
+  <a class="toc-dot" href="#decisions"><span class="toc-tip">Cần quyết</span></a>
+</nav>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="top">
+    <p class="eyebrow">ChickSpot 22 · Nền tảng thương hiệu</p>
+    <h1 class="title">Bảng hướng <em>xây dựng thương hiệu</em></h1>
+    <p class="lede">Đây là bàn làm việc để cùng nhìn các hướng có thể đi, trước khi viết câu chữ cuối. <strong>Chưa chốt gì cả, chỉ là các lựa chọn để anh chị cân nhắc.</strong> Định hướng mới đã rõ: chuẩn hóa thương hiệu để mở thành chuỗi, nên mọi thứ ở đây phải hợp cho cả chuỗi, không chỉ riêng một quán ở Hòa Lạc. Bảng này tương tác được: chọn một trục ở Phần 1, ba phần dưới sẽ tự đổi theo trục đó.</p>
+
+    <div class="quad">
+      <span class="chip no"><span class="dot"></span>Philosophy (Triết lý) <span class="lab">chưa có</span></span>
+      <span class="chip no"><span class="dot"></span>Vision (Tầm nhìn) <span class="lab">chưa có</span></span>
+      <span class="chip no"><span class="dot"></span>Mission (Sứ mệnh) <span class="lab">chưa có</span></span>
+      <span class="chip has"><span class="dot"></span>Core Value (Giá trị cốt lõi) <span class="lab">đã có, 4 trụ</span></span>
+    </div>
+
+    <div class="guide">
+      <h4>Cách đọc bảng này</h4>
+      <ul>
+        <li><span class="pill m">Hướng gợi ý</span><span>Tem màu vàng là hướng đội nhóm đề xuất, đưa ra để anh chị cân nhắc, không phải đã quyết.</span></li>
+        <li><span class="pill o">Anh Trung gợi mở</span><span>Tem màu xanh là một ý tưởng anh Trung đưa ra để xoay quanh, dùng làm điểm tựa cùng bàn lại, cũng chưa chốt.</span></li>
+        <li><span class="pill g">Cách dùng</span><span>Bấm một trục ở Phần 1 để xem kịch bản. Ba phần dưới sẽ tự làm nổi hướng hợp, làm mờ nhẹ hướng ít hợp, kèm một dòng lý do. Bấm trục khác để so sánh, hoặc bấm Bỏ chọn để xem lại tất cả.</span></li>
+      </ul>
+    </div>
+
+    <div class="callout"><b>Vì sao phải nghĩ cho cả chuỗi:</b> khi định mở nhiều cơ sở, các câu tuyên ngôn lõi nên bỏ tên địa danh, không gài Hòa Lạc hay gần FPT, chỉ giữ địa danh trong câu chuyện gốc. Slogan và câu chuyện cũng phải bắt nguồn từ một trục chung, nên hợp lý nhất là chốt trục xương sống trước, rồi mới tới ba phần còn lại.</div>
+  </header>
+
+  <hr class="rule">
+
+  <!-- GLOSSARY -->
+  <details class="gloss" open id="glossary">
+    <summary>
+      <div class="gloss-head">
+        <h2>Một số từ chuyên ngành, hiểu nhanh</h2>
+        <span class="hint">bấm để thu gọn</span>
+      </div>
+    </summary>
+    <div class="gloss-grid">
+      <div class="g"><div class="term"><b>Philosophy</b><i>Triết lý</i></div><p>Vì sao quán làm nghề này, và làm theo cách này. Niềm tin gốc của quán.</p></div>
+      <div class="g"><div class="term"><b>Vision</b><i>Tầm nhìn</i></div><p>Nơi quán muốn đến trong dài hạn. Bức tranh tương lai mong đạt được.</p></div>
+      <div class="g"><div class="term"><b>Mission</b><i>Sứ mệnh</i></div><p>Việc quán làm mỗi ngày, và làm cho ai.</p></div>
+      <div class="g"><div class="term"><b>Core Value</b><i>Giá trị cốt lõi</i></div><p>Những nguyên tắc quán giữ không đổi khi làm việc.</p></div>
+      <div class="g"><div class="term"><b>Brand promise</b><i>Lời hứa thương hiệu</i></div><p>Điều khách luôn nhận được mỗi lần đến quán. Của ChickSpot 22 gói trong một từ: an tâm.</p></div>
+      <div class="g"><div class="term"><b>POD</b><i>Điểm khác biệt</i></div><p>Thứ quán có mà nơi khác không có. Lý do khách chọn mình thay vì quán khác.</p></div>
+      <div class="g"><div class="term"><b>POP</b><i>Điểm ngang bằng</i></div><p>Thứ tối thiểu phải có để được xem là cùng nhóm với các quán khác.</p></div>
+      <div class="g"><div class="term"><b>Brand construct</b><i>Trục xương sống</i></div><p>Ý tưởng gốc mà cả thương hiệu xoay quanh. Một nền tảng tốt cần đủ bốn dấu hiệu bên dưới.</p></div>
+      <div class="g"><div class="term"><b>Consistency</b><i>Tính nhất quán</i></div><p>Mọi nơi, mọi lúc đều giống nhau. Quan trọng nhất khi làm chuỗi.</p></div>
+      <div class="g"><div class="term"><b>Differentiation, Ownership, Relevance</b><i>Khác biệt, sở hữu riêng, gần gũi</i></div><p>Ba dấu hiệu còn lại của một trục xương sống tốt: khác đối thủ, có nét riêng của mình, và gần với điều khách quan tâm.</p></div>
+      <div class="g"><div class="term"><b>Brand story</b><i>Câu chuyện thương hiệu</i></div><p>Câu chuyện kể được lâu dài, không phụ thuộc vào một người cụ thể.</p></div>
+      <div class="g"><div class="term"><b>Founder story</b><i>Câu chuyện người sáng lập</i></div><p>Câu chuyện riêng của người mở quán, dùng cho tuyến nội dung cảm hứng.</p></div>
+      <div class="g"><div class="term"><b>Signature</b><i>Món dấu ấn</i></div><p>Món hoặc nét đặc trưng làm nên dấu ấn riêng, ví dụ cơm gà Ban Mê, lẩu gà lá é.</p></div>
+    </div>
+  </details>
+
+  <hr class="rule">
+
+  <!-- BLOCK 1 -->
+  <section class="block foundation reveal" id="block1">
+    <div class="block-head">
+      <div class="block-tag"><span class="num">1</span> Nền móng · quyết định này định hướng cho cả ba phần dưới</div>
+      <h2 class="block-h">Trục xương sống của thương hiệu</h2>
+      <p class="block-desc">Một câu trả lời cho câu hỏi "ChickSpot 22 thật ra là về cái gì", mà mọi cơ sở trong chuỗi đều bám vào. Một trục tốt cần khác biệt với đối thủ, có nét riêng của mình, gần với điều khách quan tâm, và <strong>giống nhau ở mọi nơi (đây là điều quan trọng nhất khi làm chuỗi).</strong> Bấm chọn một trục để xem ba phần dưới đổi theo.</p>
+    </div>
+    <div class="cards">
+
+      <div class="card pick" data-track="antam" role="button" tabindex="0" aria-pressed="false">
+        <p class="card-no">Hướng 1</p>
+        <h3 class="card-h">An tâm và sạch sẽ</h3>
+        <p class="card-sub">Lấy cảm giác an tâm, sạch sẽ, chỉn chu làm lõi thương hiệu.</p>
+        <div class="row"><span class="tagm uu">Ưu</span><span>Đây vốn là điểm mạnh và khác biệt lõi của quán, lại là chuẩn vận hành nên dễ nhân ra nhiều cơ sở. Khớp đúng lời hứa an tâm.</span></div>
+        <div class="row"><span class="tagm nh">Nhược</span><span>Nếu chỉ nói riêng chuyện sạch thì khó thành chất riêng hấp dẫn lâu dài, vì quán nào cũng nói mình sạch.</span></div>
+        <div class="row dgrow"><span class="tagm dg">Đánh giá</span><span>Nền tin cậy rất vững, nhưng còn thiếu một chất riêng để khách nhớ.</span></div>
+        <span class="pick-now">Đang xem</span>
+      </div>
+
+      <div class="card pick" data-track="vungmien" role="button" tabindex="0" aria-pressed="false">
+        <p class="card-no">Hướng 2</p>
+        <h3 class="card-h">Gà mang hương vị vùng miền Việt</h3>
+        <p class="card-sub">Lấy món gà gắn các vùng đất Việt làm lõi, từ Tây Nguyên, miền Trung và mở rộng dần.</p>
+        <div class="row"><span class="tagm uu">Ưu</span><span>Giàu câu chuyện, khác biệt cao. Hợp với ý tưởng anh Trung gợi mở về gốc vùng miền và đề tài ẩm thực ba miền của chị. Lên chuỗi thì mở rộng menu theo từng vùng được.</span></div>
+        <div class="row"><span class="tagm nh">Nhược</span><span>Món đặc trưng gắn công thức của chị nên cần chuẩn hóa để nơi khác làm giống. Dễ bị quán khác bắt chước nếu mình không nói sớm.</span></div>
+        <div class="row dgrow"><span class="tagm dg">Đánh giá</span><span>Chất để nhớ rất mạnh, nhưng cần chuẩn hóa và giữ dấu ấn riêng.</span></div>
+        <span class="pick-now">Đang xem</span>
+      </div>
+
+      <div class="card pick rec" data-track="kethop" role="button" tabindex="0" aria-pressed="false">
+        <span class="seal">Hướng gợi ý</span>
+        <p class="card-no">Hướng 3</p>
+        <h3 class="card-h">Kết hợp cả hai</h3>
+        <p class="card-sub">An tâm là lời hứa nền, cách mình làm. Gà vùng miền Việt là chất riêng, thứ mình bán.</p>
+        <div class="row"><span class="tagm uu">Ưu</span><span>Giữ được cả hai điểm mạnh nhất. Một lớp lo phần tin cậy và dễ chuẩn hóa khi nhân chuỗi, một lớp lo phần khác biệt và câu chuyện.</span></div>
+        <div class="row"><span class="tagm nh">Nhược</span><span>Phải nói rõ đâu là lời hứa, đâu là điểm khác biệt, nếu không sẽ loãng thành kiểu vừa sạch vừa ngon vừa vùng miền, nghe chung chung.</span></div>
+        <div class="row dgrow"><span class="tagm dg">Đánh giá</span><span>Cân bằng nhất cho một thương hiệu định lên chuỗi, vì cần cả thứ nhân bản được lẫn thứ để khách nhớ.</span></div>
+        <span class="pick-now">Đang xem</span>
+      </div>
+
+    </div>
+  </section>
+  <div id="b1-end" aria-hidden="true" style="height:1px;"></div>
+
+  <hr class="rule">
+
+  <!-- BLOCK 2 -->
+  <section class="block reveal" id="block2">
+    <div class="block-head">
+      <div class="block-tag"><span class="num">2</span> Bộ bốn nền tảng</div>
+      <h2 class="block-h">Triết lý, Tầm nhìn, Sứ mệnh, Giá trị cốt lõi</h2>
+      <p class="block-desc">Bốn lớp nền của thương hiệu (Philosophy, Vision, Mission, Core Value). Phần này chọn cách viết tổng, đồng thời xem trước phác thảo từng lớp theo trục. Hiện quán mới có Giá trị cốt lõi, ba lớp kia chưa thành văn. Khi anh chị chọn trục ở Phần 1, cả bốn lớp sẽ hiện phác thảo viết theo trục đó để cùng so sánh.</p>
+    </div>
+
+    <p class="subhead">Cách viết tổng, dùng cho cả bốn lớp <span class="fixed-note">(không đổi theo trục, vì cách viết độc lập với trục)</span></p>
+    <div class="cards two">
+      <div class="card">
+        <h3 class="card-h">Viết sẵn ở tầm chuỗi</h3>
+        <p class="card-sub">Viết như thể đã là thương hiệu có nhiều cơ sở.</p>
+        <div class="row"><span class="tagm uu">Ưu</span><span>Chuẩn hóa sẵn, sau này mở rộng không phải viết lại. Hợp với mong muốn lên chuỗi của chị.</span></div>
+        <div class="row"><span class="tagm nh">Nhược</span><span>Dễ xa thực tế hiện tại khi quán mới có một cơ sở, nghe to tát nếu viết không khéo.</span></div>
+      </div>
+      <div class="card rec">
+        <span class="seal">Hướng gợi ý</span>
+        <h3 class="card-h">Viết ở tầm thương hiệu, giọng thực tế</h3>
+        <p class="card-sub">Bỏ tên địa danh, viết cho thương hiệu chứ không riêng một quán, đặt chuyện chuỗi vào phần Tầm nhìn như đích đến.</p>
+        <div class="row"><span class="tagm uu">Ưu</span><span>Vừa nhân rộng được sau này, vừa trung thực với giai đoạn hiện tại.</span></div>
+        <div class="row"><span class="tagm nh">Nhược</span><span>Đòi hỏi viết khéo để vừa mở rộng được vừa không chung chung.</span></div>
+      </div>
+    </div>
+
+    <p class="subhead">Bốn lớp: lưu ý khi lên chuỗi, và phác thảo theo trục đã chọn</p>
+    <div class="cards pair">
+      <div class="card" data-layer="philosophy">
+        <h3 class="card-h">Philosophy<br><span style="font-size:.8rem;font-weight:400;color:var(--olive-soft);">Triết lý</span></h3>
+        <div class="row dgrow"><span class="tagm dg">Lưu ý</span><span>Gần như không đổi khi lên chuỗi, vì cách nghĩ về nghề không phụ thuộc số cơ sở. Đây là lớp ổn định nhất, chốt một lần là dùng được lâu.</span></div>
+      </div>
+      <div class="card" data-layer="vision">
+        <h3 class="card-h">Vision<br><span style="font-size:.8rem;font-weight:400;color:var(--olive-soft);">Tầm nhìn</span></h3>
+        <div class="row dgrow"><span class="tagm dg">Lưu ý</span><span>Đây là lớp đổi nhiều nhất, phải nâng từ một quán thành chuỗi giữ nguyên chất. Cần chọn: nói rõ lộ trình mở chuỗi, hay chỉ nói chung chung về tham vọng.</span></div>
+      </div>
+      <div class="card" data-layer="mission">
+        <h3 class="card-h">Mission<br><span style="font-size:.8rem;font-weight:400;color:var(--olive-soft);">Sứ mệnh</span></h3>
+        <div class="row dgrow"><span class="tagm dg">Lưu ý</span><span>Bỏ cụm quanh Hòa Lạc. Cần chọn: nói tệp khách chung (người trẻ, dân văn phòng, gia đình Việt), hay nói kiểu ở mỗi nơi mình có mặt. Gắn với trục đã chọn ở phần 1.</span></div>
+      </div>
+      <div class="card" data-layer="corevalue">
+        <h3 class="card-h">Core Value<br><span style="font-size:.8rem;font-weight:400;color:var(--olive-soft);">Giá trị cốt lõi</span></h3>
+        <div class="row dgrow"><span class="tagm dg">Lưu ý</span><span>Bốn trụ giữ nguyên. Có thể cân nhắc nâng trụ chất lượng ổn định thành ổn định và giống nhau ở mọi cơ sở, vì với chuỗi, ổn định còn nghĩa là quán nào ăn cũng như nhau.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- BLOCK 3 -->
+  <section class="block reveal" id="block3">
+    <div class="block-head">
+      <div class="block-tag"><span class="num">3</span> Slogan</div>
+      <h2 class="block-h">Slogan thương hiệu</h2>
+      <p class="block-desc">Yêu cầu: dùng được khi mở rộng ngoài Hòa Lạc, giữ năng lượng tích cực kiểu gà không gáy, không tự khen mình nhất, dễ nhớ dễ đọc. Mỗi hướng kèm ô Phác thảo nêu hai câu minh họa. Phần này chọn hướng ý trước, câu chữ cuối gọt ở giai đoạn chiến dịch.</p>
+    </div>
+    <div class="scenario-strip" data-strip="slogan">
+      <span class="strip-ic" aria-hidden="true"></span>
+      <span class="strip-text"></span>
+    </div>
+    <div class="cards pair">
+      <div class="card" data-block="slogan" data-opt="h1">
+        <p class="card-no">Hướng 1</p>
+        <h3 class="card-h">Giữ tinh thần gà không gáy</h3>
+        <p class="card-sub">Kế thừa chất trẻ trung, vui, viết lại cho gọn hơn.</p>
+        <div class="row"><span class="tagm uu">Ưu</span><span>Giữ được chất trẻ, hợp với tệp sinh viên.</span></div>
+        <div class="row"><span class="tagm nh">Nhược</span><span>Dễ lặp lại lỗi của câu cũ là vần điệu khó hiểu. Cụm cực cháy lệch tông an tâm, chỉn chu.</span></div>
+        <div class="draft">
+          <span class="draft-lab">Phác thảo</span>
+          <p class="draft-line"><b>A.</b>Gà không gáy, để vị lên tiếng.</p>
+          <p class="draft-line"><b>B.</b>Hương vị tự lên tiếng, chẳng cần phô trương.</p>
+        </div>
+      </div>
+      <div class="card" data-block="slogan" data-opt="h2">
+        <p class="card-no">Hướng 2</p>
+        <h3 class="card-h">Hướng an tâm, tin cậy</h3>
+        <p class="card-sub">Bám đúng lời hứa lõi của quán.</p>
+        <div class="row"><span class="tagm uu">Ưu</span><span>Khớp điểm mạnh nhất và lời hứa, nhân rộng tốt cho chuỗi.</span></div>
+        <div class="row"><span class="tagm nh">Nhược</span><span>Dễ thành nghiêm túc, mất chất vui. Chuyện sạch lại khó nói thẳng vì quán chủ trương không tự khen.</span></div>
+        <div class="draft">
+          <span class="draft-lab">Phác thảo</span>
+          <p class="draft-line"><b>A.</b>Sạch từng khâu, an tâm từng bữa.</p>
+          <p class="draft-line"><b>B.</b>Trọn vẹn an tâm trong từng bữa ăn.</p>
+        </div>
+      </div>
+      <div class="card" data-block="slogan" data-opt="h3">
+        <p class="card-no">Hướng 3</p>
+        <h3 class="card-h">Hướng gà vùng miền Việt</h3>
+        <p class="card-sub">Bám chất khác biệt của món.</p>
+        <div class="row"><span class="tagm uu">Ưu</span><span>Khác biệt, gắn câu chuyện thương hiệu, mở rộng menu theo vùng được.</span></div>
+        <div class="row"><span class="tagm nh">Nhược</span><span>Hơi kén nếu khách chưa biết câu chuyện, cần nội dung kể chuyện đỡ lưng.</span></div>
+        <div class="draft">
+          <span class="draft-lab">Phác thảo</span>
+          <p class="draft-line"><b>A.</b>Mỗi vùng một vị gà.</p>
+          <p class="draft-line"><b>B.</b>Hương vị gà Việt, hội tụ một nơi.</p>
+        </div>
+      </div>
+      <div class="card" data-block="slogan" data-opt="h4">
+        <p class="card-no">Hướng 4</p>
+        <h3 class="card-h">Hướng bữa ăn được chăm sóc</h3>
+        <p class="card-sub">Bám sự gần gũi, ấm áp.</p>
+        <div class="row"><span class="tagm uu">Ưu</span><span>Ấm áp, hợp với khách gia đình.</span></div>
+        <div class="row"><span class="tagm nh">Nhược</span><span>Nhiều quán cũng nói như cơm nhà, dễ đụng hàng, ít tạo khác biệt.</span></div>
+        <div class="draft">
+          <span class="draft-lab">Phác thảo</span>
+          <p class="draft-line"><b>A.</b>Mỗi bữa ăn, một sự chăm chút.</p>
+          <p class="draft-line"><b>B.</b>Tận tâm trong từng phần ăn.</p>
+        </div>
+      </div>
+    </div>
+    <div class="note"><b>Lưu ý thứ tự:</b> slogan nên bắt nguồn từ trục đã chọn ở phần 1, nên đừng chốt slogan trước khi chốt trục xương sống. Câu chữ cuối nên để làm ở giai đoạn chiến dịch, lần này chỉ cần chọn hướng ý.</div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- BLOCK 4 -->
+  <section class="block reveal" id="block4">
+    <div class="block-head">
+      <div class="block-tag"><span class="num">4</span> Câu chuyện</div>
+      <h2 class="block-h">Câu chuyện thương hiệu</h2>
+      <p class="block-desc">Phân biệt trước cho rõ: <strong>câu chuyện thương hiệu</strong> (brand story) là câu chuyện kể được lâu dài, không phụ thuộc một người. <strong>Câu chuyện người sáng lập</strong> (founder story) là chuyện riêng của người mở quán. Khi lên chuỗi, câu chuyện thương hiệu phải sống được kể cả khi chị không trực tiếp đứng bếp. Mỗi hướng kèm ô Phác thảo là một bản viết đầy đủ để anh chị hình dung.</p>
+    </div>
+    <div class="scenario-strip" data-strip="story">
+      <span class="strip-ic" aria-hidden="true"></span>
+      <span class="strip-text"></span>
+    </div>
+    <div class="cards pair">
+      <div class="card trung" data-block="story" data-opt="h1">
+        <span class="seal olv">Anh Trung gợi mở</span>
+        <p class="card-no">Hướng 1</p>
+        <h3 class="card-h">Nguồn gốc món, hương vị vùng miền</h3>
+        <p class="card-sub">Kể từng món dấu ấn gắn vùng đất: cơm gà Ban Mê gắn Buôn Ma Thuột, lẩu gà lá é gắn miền Trung.</p>
+        <div class="row"><span class="tagm uu">Ưu</span><span>Khách quan tâm nguồn gốc các món hiện tại, mở rộng theo vùng được, lại chính là món dấu ấn riêng của quán.</span></div>
+        <div class="row"><span class="tagm nh">Nhược</span><span>Gắn công thức cá nhân của chị, cần nói sớm để giữ dấu ấn.</span></div>
+        <div class="row dgrow"><span class="tagm dg">Đánh giá</span><span>Đây là ý tưởng anh Trung đưa ra để xoay quanh, dùng làm điểm tựa cùng bàn lại, chưa phải hướng đã chốt.</span></div>
+        <div class="draft">
+          <span class="draft-lab">Phác thảo</span>
+          <p class="draft-story">Người sáng lập ChickSpot 22 sinh ra nơi mảnh đất Quảng Bình, rồi theo gia đình vào lập nghiệp tại Buôn Ma Thuột. Tuổi thơ lớn lên giữa miền giao hòa của Tây Nguyên và duyên hải miền Trung đã sớm hun đúc trong chị một vốn liếng hương vị, nơi tinh hoa của nhiều vùng đất quyện vào nhau qua từng căn bếp. Chính nền tảng ẩm thực đó về sau kết tinh thành những món làm nên dấu ấn của quán. Cơm gà Ban Mê mang trọn cái cốt cách Buôn Ma Thuột, với cơm nấu cùng nghệ vàng óng, thịt gà ta xé mềm, điểm thêm rau ghém, dưa góp và chén nước chấm lòng mề đậm đà. Bên cạnh đó, lẩu gà lá é gọi về hương vị Phú Yên, nơi lá é rừng cay the thoảng hương trở thành thứ gia vị hiếm gặp giữa lòng đất Bắc. Mỗi món ăn là một tiếng vọng của vùng đất, và ChickSpot 22 chọn cách tái hiện trọn vẹn cái cốt cách ấy, thay vì làm phai nhạt đi để chiều lòng số đông.</p>
+        </div>
+      </div>
+      <div class="card" data-block="story" data-opt="h2">
+        <p class="card-no">Hướng 2</p>
+        <h3 class="card-h">Hành trình người sáng lập</h3>
+        <p class="card-sub">Người mẹ quay lại làm việc, học bếp bài bản, làm điều khiến con tự hào (phỏng vấn).</p>
+        <div class="row"><span class="tagm uu">Ưu</span><span>Chất truyền cảm hứng cao, giải thích được vì sao quán tử tế, là nền tự nhiên cho phần Triết lý.</span></div>
+        <div class="row"><span class="tagm nh">Nhược</span><span>Gắn cá nhân chị nên khó nhân sang câu chuyện chung của chuỗi. Anh Trung cũng lưu ý khách quan tâm món hơn người mở quán, nên cần dùng vừa phải.</span></div>
+        <div class="draft">
+          <span class="draft-lab">Phác thảo</span>
+          <p class="draft-story">Trước khi ChickSpot 22 ra đời, chị Trang đã có nhiều năm dành trọn cho gia đình và những đứa con thơ. Đến khi các con dần trưởng thành, trong chị nhen lên mong muốn trở lại với công việc, theo đuổi một điều của riêng mình và làm nên niềm tự hào trong mắt con. Chị tìm đến nghề bếp, công việc gần gũi nhất với những gì vẫn vun vén mỗi ngày cho tổ ấm, nhưng lần này là một sự theo đuổi bài bản: trọn một khóa đào tạo kéo dài nhiều tháng, không chỉ học nấu mà còn học cách điều hành cả một gian bếp, để mỗi món ăn đều đạt cùng một chuẩn mực. ChickSpot 22 hình thành từ chính hành trình đó. Và cũng bởi thế, ẩn sau từng phần ăn nơi đây là sự kỹ lưỡng của một người vẫn luôn nấu nướng bằng tấm lòng dành cho người thân của mình.</p>
+        </div>
+      </div>
+      <div class="card" data-block="story" data-opt="h3">
+        <p class="card-no">Hướng 3</p>
+        <h3 class="card-h">Cách làm tử tế, an tâm</h3>
+        <p class="card-sub">Biến chính quy trình thành câu chuyện: bếp một chiều, không tái sử dụng đồ thừa, chuẩn hóa từng món.</p>
+        <div class="row"><span class="tagm uu">Ưu</span><span>Khớp điểm mạnh vệ sinh, biến những điểm tốt đang ít người thấy thành thứ khách nhìn ra được, lại dễ nhân rộng vì là chuẩn chung.</span></div>
+        <div class="row"><span class="tagm nh">Nhược</span><span>Ít kịch tính cảm xúc hơn, cần kể khéo để không thành tự khen mình sạch.</span></div>
+        <div class="draft">
+          <span class="draft-lab">Phác thảo</span>
+          <p class="draft-story">Có những điều tại ChickSpot 22 mà thực khách bên ngoài chẳng mấy khi nhìn thấy. Gà luộc không bán hết trong hạn đều được bỏ đi, để mỗi phần ăn luôn mới. Gian bếp được thiết kế theo nguyên tắc một chiều, để thực phẩm sống và chín không khi nào giao cắt trên cùng một lối đi. Đồ thừa trên bàn được thu gom riêng và mang đi, tuyệt nhiên không một lần quay lại căn bếp. Và mọi loại nước sốt đều do chính tay chủ quán chế biến, vắng bóng mọi chất bảo quản. Những nguyên tắc thầm lặng ấy chẳng phô bày ra để làm vừa lòng ai, nhưng chính chúng mới là điều giữ cho mỗi bữa ăn nơi đây, dẫu dùng đến mỗi ngày, vẫn vẹn nguyên một niềm an tâm.</p>
+        </div>
+      </div>
+      <div class="card rec" data-block="story" data-opt="h4">
+        <span class="seal">Hướng gợi ý</span>
+        <p class="card-no">Hướng 4</p>
+        <h3 class="card-h">Một câu chuyện khung nối cả ba</h3>
+        <p class="card-sub">Một mạch chính nối ba lớp: người sáng lập (vì sao), cách làm tử tế (an tâm), hương vị vùng miền (món).</p>
+        <div class="row"><span class="tagm uu">Ưu</span><span>Đầy đủ, mỗi mạch phục vụ một mục đích, tách ra được thành nhiều tuyến nội dung khác nhau.</span></div>
+        <div class="row"><span class="tagm nh">Nhược</span><span>Cần một câu chuyện khung mạch lạc để ba mạch không rời rạc, công biên tập nhiều hơn.</span></div>
+        <div class="draft">
+          <span class="draft-lab">Phác thảo</span>
+          <p class="draft-story">Câu chuyện của ChickSpot 22 khởi nguồn từ tấm lòng một người mẹ, mong làm nên một điều tử tế cho con và cho khách, nên đã theo học nghề bếp đến nơi đến chốn trước khi mở quán. Từ tấm lòng ấy, triết lý vận hành của quán được gói trọn trong một chữ sạch: món nấu tươi theo suất, gian bếp một chiều, không tái sử dụng đồ thừa, nước sốt tự tay nấu mà chẳng cần chất bảo quản. Và cũng từ đó, hương vị của quán men theo bản đồ ẩm thực của chính vùng đất đã nuôi chị khôn lớn, để cơm gà Ban Mê mang về cốt cách Tây Nguyên, còn lẩu gà lá é gợi nhớ hương vị miền Trung. Ba mạch nguồn ấy, một khởi đầu từ tấm lòng, một cách làm tử tế, và một bản sắc hương vị, hòa quyện thành một câu chuyện thống nhất. Để rồi dù mai này vươn xa đến đâu, cả ba mạch vẫn vẹn nguyên sức kể, bởi không một mạch nào lệ thuộc vào riêng một con người hay một mái quán.</p>
+        </div>
+      </div>
+    </div>
+    <div class="note"><b>Ranh giới khi viết:</b> trau chuốt câu chữ thì thoải mái, nhưng phần kể không được đi quá xa sự thật, không thổi phồng tới mức đẩy kỳ vọng của khách lên quá cao hay vượt ngoài đúng chất thương hiệu.</div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- FOOTER -->
+  <footer class="foot reveal" id="decisions">
+    <div class="foot-grid">
+      <div class="panel">
+        <h3>Các điểm cần anh chị quyết</h3>
+        <ul class="qlist">
+          <li><b>Trục xương sống</b> (phần 1): chọn một trong ba hướng.</li>
+          <li><b>Cách viết bộ bốn</b> (phần 2): viết sẵn tầm chuỗi, hay viết tầm thương hiệu giọng thực tế.</li>
+          <li><b>Mức nói về chuyện chuỗi</b> trong Tầm nhìn: nói rõ lộ trình hay nói chung chung.</li>
+          <li><b>Có thêm chiều giống nhau giữa cơ sở</b> vào Giá trị cốt lõi không.</li>
+          <li><b>Hướng ý cho slogan</b> (phần 3).</li>
+          <li><b>Mức trau chuốt câu chuyện</b> (phần 4).</li>
+        </ul>
+      </div>
+      <div class="panel pending">
+        <h3>Đề xuất về bộ từ tính cách quán</h3>
+        <p style="margin:0 0 10px;">Chị chọn ba từ an tâm, ấm áp, gần gũi (phỏng vấn). Cả ba đều nói về cái tình, là quán quan tâm khách tới đâu, nhưng chưa từ nào nói về cái nghề, là quán làm có chắc tay và bài bản không. Với một quán quen ở Hòa Lạc, cái tình là đủ vì khách đã tin sẵn. Lên chuỗi thì khác: khách ở cơ sở mới chưa quen ai, thứ khiến họ tin là cảm giác quán làm chuyên nghiệp, nơi nào cũng một chuẩn. Vì thế nên thêm một từ về sự chỉn chu, chuyên nghiệp.</p>
+        <p style="margin:0 0 4px;">Thêm từ này không phải tô vẽ, vì quán vốn đã sống bằng nó: chị học nghề bếp trọn một khóa bài bản, học cả cách điều hành gian bếp cho mọi món về một chuẩn; bếp một chiều, không tái dùng đồ thừa, sốt tự nấu, món chỉ lên thực đơn khi đã chuẩn hóa. Ba từ ấm chưa gọi tên được lớp tài nghệ đó. Ngay cả chuyện nhiều khách tưởng quán là cơ sở thứ 22 của một chuỗi cũng vô tình khiến quán trông chuyên nghiệp sẵn. Đề xuất: giữ ba từ ấm làm mặt tiền cảm xúc, để chỉn chu, chuyên nghiệp làm lớp nền tài nghệ phía sau. Bộ từ này định tông cho cả slogan và câu chuyện.</p>
+        <div class="wordset">
+          <span class="w">An tâm</span>
+          <span class="w">Ấm áp</span>
+          <span class="w">Gần gũi</span>
+          <span class="w opt">Chỉn chu, chuyên nghiệp (đề xuất thêm)</span>
+        </div>
+        <div class="next"><b>Bước đề xuất:</b> bàn phần 1 trước, vì nó định hướng cho cả ba phần còn lại.</div>
+      </div>
+    </div>
+
+    <p class="src"><b>Nguồn chất liệu:</b> phỏng vấn hai chủ quán (giá trị cốt lõi, danh sách điều không làm, tầm nhìn dài hạn, ba từ mô tả quán, hành trình mở quán), định hướng câu chuyện của anh Trung, và khung lý thuyết xây dựng thương hiệu. &nbsp; <b>Màu nhận diện:</b> xanh ô liu #50742a trên nền kem #f7ffe1.</p>
+  </footer>
+
+</div>
+
+<script>
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var NEUTRAL = 'Chọn một trục ở Phần 1 để xem phần này nên nghiêng về hướng nào.';
+
+  var SCENARIOS = {
+    antam: {
+      label: 'An tâm và sạch sẽ',
+      block2: {
+        philosophy: 'Với ChickSpot 22, phục vụ một bữa ăn là gánh lấy trách nhiệm đối với sức khỏe và niềm tin của thực khách. Trách nhiệm ấy bắt đầu từ những công đoạn thầm lặng phía sau gian bếp, nơi ánh nhìn của khách không chạm tới, và cũng là nơi quán dồn vào nhiều tâm sức nhất. Bởi tin rằng chất lượng đích thực rồi sẽ tự cất lên tiếng nói của mình, ChickSpot 22 chọn để sản phẩm chứng minh giá trị, thay cho mọi lời quảng bá.',
+        vision: 'ChickSpot 22 hướng tới trở thành thương hiệu ẩm thực nơi mỗi thực khách có thể gửi trọn sự an tâm vào từng bữa ăn, từ chất lượng cho đến vệ sinh. Trên hành trình ấy, mỗi cơ sở mới không đơn thuần là một điểm đến, mà còn là một chuẩn mực, góp phần nâng tầm hàng quán tại khu vực mình hiện diện, để người hưởng lợi sau cùng luôn là thực khách.',
+        mission: 'Mỗi ngày, ChickSpot 22 mang đến những bữa cơm và bữa lẩu được chế biến sạch sẽ và minh bạch, để mỗi lần dùng bữa bên ngoài của khách cùng gia đình đều trở thành một lựa chọn trọn vẹn sự an tâm.',
+        corevalue: 'Bốn giá trị cốt lõi cùng được gìn giữ song hành, và theo trục này, hai giá trị làm nên sự an tâm được đặt lên hàng đầu. Trước hết là sạch sẽ và an toàn, thể hiện ở việc toàn bộ nước sốt đều do chính tay chủ quán chế biến mà không dùng chất bảo quản, và mọi thực phẩm đã đến bàn khách đều không bao giờ được tái sử dụng. Song hành cùng đó là chất lượng ổn định, khi mỗi suất ăn đều được bảo đảm đồng nhất, và một món mới chỉ xuất hiện trên thực đơn một khi đã hoàn tất quá trình chuẩn hóa.'
+      },
+      slogan: {
+        strip: 'Theo trục an tâm và sạch sẽ, slogan nên nói thẳng vào sự tin cậy, tránh câu chỉ có vần điệu cho vui.',
+        opts: {
+          h1: {level:'it', reason:'Chất vui trẻ trung lệch tông an tâm, chỉn chu của trục này.'},
+          h2: {level:'chinh'},
+          h3: {level:'it', reason:'Nói về vùng miền, không nói về sự an tâm, lệch trục.'},
+          h4: {level:'phu', note:'Sự ấm áp, chăm sóc cộng hưởng tốt với cảm giác an tâm.'}
+        }
+      },
+      story: {
+        strip: 'Theo trục an tâm và sạch sẽ, câu chuyện mạnh nhất là biến chính quy trình sạch thành thứ khách nhìn thấy được.',
+        opts: {
+          h1: {level:'it', reason:'Kể về vùng miền, không phục vụ trục an tâm.'},
+          h2: {level:'phu', note:'Giải thích được vì sao quán làm tử tế, làm nền tự nhiên cho phần Triết lý.'},
+          h3: {level:'chinh'},
+          h4: {level:'phu', note:'Dùng được, nhưng nặng công biên tập hơn mức trục này cần.'}
+        }
+      }
+    },
+    vungmien: {
+      label: 'Gà vùng miền Việt',
+      block2: {
+        philosophy: 'Mỗi vùng đất Việt đều gìn giữ một cách chế biến gà của riêng mình, và đằng sau mỗi món ngon luôn là một cội rễ. ChickSpot 22 theo đuổi việc tái hiện trọn vẹn cội rễ ấy, thay vì làm phai nhạt hương vị để chiều theo số đông. Bởi với quán, nấu ăn trước hết vẫn là gìn giữ sức khỏe và niềm tin của thực khách, nên một hương vị đúng điệu luôn phải song hành cùng sự sạch sẽ và trung thực.',
+        vision: 'ChickSpot 22 hướng tới trở thành cái tên đầu tiên hiện lên trong tâm trí thực khách mỗi khi họ tìm về một món gà mang đậm hương vị vùng miền. Và mỗi bước chân mở rộng lại là một dịp để quán mang theo hương vị gà của một vùng đất mới, để thực đơn cứ thế trải rộng dần theo bản đồ ẩm thực Việt Nam.',
+        mission: 'Mỗi ngày, ChickSpot 22 đưa hương vị gà của những vùng đất Việt, từ Tây Nguyên đến dải miền Trung và xa hơn nữa, vào bữa ăn thường nhật của thực khách, với trọn vẹn cam kết nấu đúng chuẩn và gìn giữ cái hồn của vị gốc.',
+        corevalue: 'Bốn giá trị cốt lõi cùng được gìn giữ song hành, và theo trục này, hai giá trị bảo chứng cho hương vị vùng miền được đề cao. Đó là chất lượng ổn định, khi mỗi món đều được chuẩn hóa kỹ lưỡng để dù nhân rộng đến cơ sở nào, hương vị gốc vẫn vẹn nguyên một mực. Và đó là trung thực, khi nguồn cội của mỗi món luôn được kể lại đúng như nó vốn có, đủ sức cuốn hút mà chẳng cần đến một lời thổi phồng.'
+      },
+      slogan: {
+        strip: 'Theo trục gà vùng miền, slogan nên gợi được chất vùng miền và sự khác biệt của món.',
+        opts: {
+          h1: {level:'phu', note:'Chất trẻ trung hợp tệp sinh viên, nhưng tự nó chưa nói được vùng miền.'},
+          h2: {level:'it', reason:'Bám sự an tâm, đó là trục khác, không phải trục vùng miền.'},
+          h3: {level:'chinh'},
+          h4: {level:'it', reason:'Thiên sự ấm áp chung, chưa chạm tới chất vùng miền.'}
+        }
+      },
+      story: {
+        strip: 'Theo trục gà vùng miền, câu chuyện nên dẫn bằng nguồn gốc món, hoặc bằng hành trình người sáng lập.',
+        opts: {
+          h1: {level:'chinh'},
+          h2: {level:'chinh'},
+          h3: {level:'phu', note:'Bổ trợ phần an tâm, nhưng không phải mạch dẫn của trục này.'},
+          h4: {level:'phu', note:'Dùng được, nhưng trục này có thể dẫn gọn bằng một mạch món hoặc người.'}
+        }
+      }
+    },
+    kethop: {
+      label: 'Kết hợp cả hai',
+      block2: {
+        philosophy: 'Phục vụ một bữa ăn là gánh lấy trách nhiệm đối với sức khỏe và niềm tin của thực khách. Trên nền tảng ấy, ChickSpot 22 gìn giữ sự sạch sẽ để mang lại an tâm, đồng thời tái hiện đúng hương vị từng vùng để mỗi bữa ăn đều mang một dấu ấn riêng. Và bởi đặt niềm tin vào giá trị thật của sản phẩm, quán để chính trải nghiệm cất lên tiếng nói, thay cho mọi lời quảng bá.',
+        vision: 'ChickSpot 22 hướng tới trở thành thương hiệu nơi thực khách vừa an tâm tuyệt đối về sự sạch sẽ, vừa được thưởng thức món gà đậm đà hương vị vùng miền, để rồi từ đó vươn mình thành một chuỗi mà mỗi cơ sở đều gìn giữ vẹn nguyên cả hai giá trị. Bởi với quán, mỗi nơi hiện diện không đơn thuần là một địa điểm, mà còn là một lần nâng tầm chuẩn mực cho ngành ẩm thực khu vực.',
+        mission: 'Mỗi ngày, ChickSpot 22 mang đến những bữa ăn an tâm cùng món gà đậm đà hương vị vùng miền, với sự sạch sẽ và hương vị được gìn giữ đồng nhất trên khắp các cơ sở.',
+        corevalue: 'Cả bốn giá trị cốt lõi đều được giữ trọn, không một giá trị nào bị xem nhẹ, và trên hành trình trở thành chuỗi, quán bổ sung thêm một chiều giá trị của riêng mô hình ấy là tính đồng nhất giữa các cơ sở. Bởi một khi đã là chuỗi, ổn định không còn dừng ở việc mỗi suất ăn như nhau, mà vươn tới việc mỗi cơ sở đều mang đến cho thực khách một trải nghiệm trọn vẹn như một.'
+      },
+      slogan: {
+        strip: 'Theo trục kết hợp, slogan linh hoạt nhất: đi hướng an tâm, hướng vùng miền, hoặc một câu ôm được cả hai đều hợp.',
+        opts: {
+          h1: {level:'phu', note:'Giữ được chất trẻ trung, có thể lồng vào nhưng không phải mạch chính.'},
+          h2: {level:'chinh'},
+          h3: {level:'chinh'},
+          h4: {level:'phu', note:'Ấm áp, hợp tệp gia đình, dùng làm sắc thái phụ được.'}
+        }
+      },
+      story: {
+        strip: 'Theo trục kết hợp, câu chuyện hợp nhất là một khung tổng nối ba mạch: vì sao, cách làm tử tế, và món vùng miền.',
+        opts: {
+          h1: {level:'phu', note:'Là một trong ba mạch của khung tổng.'},
+          h2: {level:'phu', note:'Là một trong ba mạch của khung tổng.'},
+          h3: {level:'phu', note:'Là một trong ba mạch của khung tổng.'},
+          h4: {level:'chinh'}
+        }
+      }
+    }
+  };
+
+  var currentKey = null;
+  var pastBlock1 = false;
+
+  function makeEl(tag, cls){ var e=document.createElement(tag); if(cls){ e.className=cls; } return e; }
+
+  // Build dynamic slots once
+  document.querySelectorAll('.card[data-block]').forEach(function(card){
+    var chip = makeEl('span','fit-chip'); chip.hidden = true;
+    var reason = makeEl('p','fit-reason'); reason.hidden = true;
+    card.appendChild(chip);
+    card.appendChild(reason);
+    card._chip = chip;
+    card._reason = reason;
+  });
+  document.querySelectorAll('.card[data-layer]').forEach(function(card){
+    var draft = makeEl('div','layer-draft empty');
+    draft.textContent = 'Chọn một trục ở Phần 1 để xem phác thảo.';
+    card.appendChild(draft);
+    card._draft = draft;
+  });
+
+  function setStrip(which, text, active){
+    var s = document.querySelector('.scenario-strip[data-strip="'+which+'"]');
+    if(!s){ return; }
+    s.querySelector('.strip-text').textContent = text;
+    s.classList.toggle('is-active', active);
+  }
+
+  function applyScenario(key){
+    var sc = key ? SCENARIOS[key] : null;
+
+    setStrip('slogan', sc ? sc.slogan.strip : NEUTRAL, !!sc);
+    setStrip('story', sc ? sc.story.strip : NEUTRAL, !!sc);
+
+    document.querySelectorAll('.card[data-block]').forEach(function(card){
+      var block = card.getAttribute('data-block');
+      var opt = card.getAttribute('data-opt');
+      card.classList.remove('fit-chinh','fit-phu','fit-it');
+      card._chip.hidden = true;
+      card._reason.hidden = true;
+      if(!sc){ return; }
+      var conf = sc[block].opts[opt];
+      if(!conf){ return; }
+      if(conf.level === 'chinh'){
+        card.classList.add('fit-chinh');
+        card._chip.textContent = 'Hợp trục đang chọn';
+        card._chip.className = 'fit-chip is-chinh';
+        card._chip.hidden = false;
+      } else if(conf.level === 'phu'){
+        card.classList.add('fit-phu');
+        card._chip.textContent = 'Bổ trợ';
+        card._chip.className = 'fit-chip is-phu';
+        card._chip.hidden = false;
+        if(conf.note){ card._reason.textContent = conf.note; card._reason.hidden = false; }
+      } else {
+        card.classList.add('fit-it');
+        if(conf.reason){ card._reason.textContent = 'Ít hợp trục này: ' + conf.reason; card._reason.hidden = false; }
+      }
+    });
+
+    document.querySelectorAll('.card[data-layer]').forEach(function(card){
+      var layer = card.getAttribute('data-layer');
+      if(sc && sc.block2[layer]){
+        card._draft.textContent = sc.block2[layer];
+        card._draft.classList.remove('empty');
+      } else {
+        card._draft.textContent = 'Chọn một trục ở Phần 1 để xem phác thảo.';
+        card._draft.classList.add('empty');
+      }
+    });
+
+    document.querySelectorAll('.card.pick').forEach(function(c){
+      var on = c.getAttribute('data-track') === key;
+      c.classList.toggle('selected', on);
+      c.classList.toggle('dim', !!key && !on);
+      c.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+
+    currentKey = key;
+    updateBar(sc);
+  }
+
+  function updateBar(sc){
+    var bar = document.getElementById('scbar');
+    if(sc){
+      document.getElementById('barName').textContent = sc.label;
+      bar.dataset.has = '1';
+    } else {
+      bar.dataset.has = '';
+    }
+    reflectBar();
+  }
+
+  function reflectBar(){
+    var bar = document.getElementById('scbar');
+    var show = (bar.dataset.has === '1') && pastBlock1;
+    bar.classList.toggle('show', show);
+    bar.setAttribute('aria-hidden', show ? 'false' : 'true');
+  }
+
+  // Block 1 selection (single select, click again to clear)
+  document.querySelectorAll('.card.pick').forEach(function(card){
+    function choose(){
+      var key = card.getAttribute('data-track');
+      applyScenario(currentKey === key ? null : key);
+    }
+    card.addEventListener('click', choose);
+    card.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); choose(); }
+    });
+  });
+
+  // Bar buttons
+  document.getElementById('barChange').addEventListener('click', function(){
+    document.getElementById('block1').scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'start'});
+  });
+  document.getElementById('barClear').addEventListener('click', function(){
+    applyScenario(null);
+  });
+
+  // Show bar after scrolling past block 1
+  var sentinel = document.getElementById('b1-end');
+  var barObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      pastBlock1 = (!en.isIntersecting) && (en.boundingClientRect.top < 0);
+      reflectBar();
+    });
+  }, {threshold: 0});
+  barObserver.observe(sentinel);
+
+  // Reveal on scroll
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  // Phác thảo boxes (slogan, story): hidden by default, button reveals
+  document.querySelectorAll('.draft').forEach(function(box){
+    box.hidden = true;
+    var btn = makeEl('button','draft-toggle');
+    btn.type = 'button';
+    btn.setAttribute('aria-expanded','false');
+    btn.textContent = 'Xem phác thảo';
+    box.parentNode.insertBefore(btn, box);
+    btn.addEventListener('click', function(){
+      var willOpen = box.hidden;
+      box.hidden = !willOpen;
+      btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      btn.textContent = willOpen ? 'Ẩn phác thảo' : 'Xem phác thảo';
+    });
+  });
+
+  // Scroll-spy for floating ToC
+  var tocLinks = Array.prototype.slice.call(document.querySelectorAll('.toc-dot'));
+  var tocTargets = tocLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  if(tocTargets.some(Boolean)){
+    var tocObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          var idx = tocTargets.indexOf(en.target);
+          tocLinks.forEach(function(a,i){ a.classList.toggle('active', i === idx); });
+        }
+      });
+    }, {rootMargin:'-45% 0px -50% 0px', threshold:0});
+    tocTargets.forEach(function(t){ if(t){ tocObserver.observe(t); } });
+  }
+
+  // Start in neutral state
+  applyScenario(null);
+</script>
+</body>
+</html>
